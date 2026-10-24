@@ -1,0 +1,6 @@
+{
+  "name": "Solat Adventure World",
+  "description": "Permainan web edukasi interaktif solat untuk murid Tahun 1 meneroka 5 kawasan dan 8 checkpoint misi pembelajaran.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
