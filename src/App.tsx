@@ -13,6 +13,7 @@ import { WorldMap } from './components/WorldMap';
 import { CheckpointModal } from './components/CheckpointModal';
 import { BadgesModal } from './components/BadgesModal';
 import { CertificateModal } from './components/CertificateModal';
+import { GoogleSitesEmbedModal } from './components/GoogleSitesEmbedModal';
 import { MascotMentor } from './components/MascotMentor';
 import { Sparkles, Trophy } from 'lucide-react';
 
@@ -44,6 +45,7 @@ export default function App() {
   const [activeCheckpoint, setActiveCheckpoint] = useState<CheckpointInfo | null>(null);
   const [showBadgesModal, setShowBadgesModal] = useState<boolean>(false);
   const [showCertificateModal, setShowCertificateModal] = useState<boolean>(false);
+  const [showEmbedModal, setShowEmbedModal] = useState<boolean>(false);
   const [newBadgeNotification, setNewBadgeNotification] = useState<string | null>(null);
   const [showResetConfirm, setShowResetConfirm] = useState<boolean>(false);
 
@@ -195,6 +197,7 @@ export default function App() {
           studentName={studentName}
           onUpdateName={handleUpdateName}
           onStartGame={() => setGameState('map')}
+          onOpenEmbedModal={() => setShowEmbedModal(true)}
         />
       ) : (
         <div className="flex-1 flex flex-col">
@@ -214,6 +217,7 @@ export default function App() {
             onToggleSpeech={toggleSpeech}
             onOpenBadges={() => setShowBadgesModal(true)}
             onOpenCertificate={() => setShowCertificateModal(true)}
+            onOpenEmbedModal={() => setShowEmbedModal(true)}
             onResetGame={handleResetGame}
           />
 
@@ -307,6 +311,13 @@ export default function App() {
             </div>
           )}
         </div>
+      )}
+
+      {/* Google Sites Embed Modal (Always accessible) */}
+      {showEmbedModal && (
+        <GoogleSitesEmbedModal
+          onClose={() => setShowEmbedModal(false)}
+        />
       )}
     </div>
   );

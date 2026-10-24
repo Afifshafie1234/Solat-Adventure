@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Play, Sparkles, Volume2, VolumeX, Download } from 'lucide-react';
+import { Play, Sparkles, Volume2, VolumeX, Download, Globe } from 'lucide-react';
 import { sound } from '../game/audio';
 import { downloadStandaloneHtml } from '../utils/exportSingleHtml';
 
@@ -7,12 +7,14 @@ interface Props {
   studentName: string;
   onUpdateName: (name: string) => void;
   onStartGame: () => void;
+  onOpenEmbedModal: () => void;
 }
 
 export const TitleScreen: React.FC<Props> = ({
   studentName,
   onUpdateName,
   onStartGame,
+  onOpenEmbedModal,
 }) => {
   const [name, setName] = useState(studentName || 'Ahmad');
   const [soundOn, setSoundOn] = useState(true);
@@ -118,24 +120,38 @@ export const TitleScreen: React.FC<Props> = ({
           <span>MULA PENGEMBARAAN!</span>
         </button>
 
-        {/* Secondary Tools: Sound & Offline Export */}
-        <div className="flex items-center justify-between mt-6 pt-4 border-t border-slate-200 text-xs">
+        {/* Secondary Tools: Sound, Embed & Offline Export */}
+        <div className="flex flex-wrap items-center justify-between gap-2 mt-6 pt-4 border-t border-slate-200 text-xs">
           <button
             onClick={toggleSound}
             className="flex items-center gap-1.5 text-slate-600 hover:text-slate-900 font-semibold cursor-pointer"
           >
             {soundOn ? <Volume2 className="w-4 h-4 text-emerald-600" /> : <VolumeX className="w-4 h-4 text-slate-400" />}
-            <span>{soundOn ? 'Muzik & Bunyi: Hidup' : 'Bunyi: Senyap'}</span>
+            <span>{soundOn ? 'Bunyi: Hidup' : 'Bunyi: Senyap'}</span>
           </button>
 
-          <button
-            onClick={() => downloadStandaloneHtml(name || 'Pengembara Cilik')}
-            className="flex items-center gap-1.5 text-emerald-700 hover:text-emerald-900 font-bold cursor-pointer"
-            title="Muat Turun Fail HTML Mandiri untuk Main Offline"
-          >
-            <Download className="w-4 h-4" />
-            <span>Muat Turun Fail HTML</span>
-          </button>
+          <div className="flex items-center gap-3">
+            <button
+              onClick={() => {
+                sound.playClick();
+                onOpenEmbedModal();
+              }}
+              className="flex items-center gap-1 text-blue-700 hover:text-blue-900 font-bold cursor-pointer"
+              title="Dapatkan Kod Embed untuk Google Sites"
+            >
+              <Globe className="w-4 h-4" />
+              <span>Embed Google Sites</span>
+            </button>
+
+            <button
+              onClick={() => downloadStandaloneHtml(name || 'Pengembara Cilik')}
+              className="flex items-center gap-1 text-emerald-700 hover:text-emerald-900 font-bold cursor-pointer"
+              title="Muat Turun Fail HTML Mandiri untuk Main Offline"
+            >
+              <Download className="w-4 h-4" />
+              <span>Muat Turun Fail HTML</span>
+            </button>
+          </div>
         </div>
       </div>
     </div>

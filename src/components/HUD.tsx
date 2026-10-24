@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Award, Download, RotateCcw, Volume2, VolumeX, Sparkles, User, MessageSquare } from 'lucide-react';
+import { Award, Download, RotateCcw, Volume2, VolumeX, Sparkles, User, MessageSquare, Globe } from 'lucide-react';
 import { sound } from '../game/audio';
 import { downloadStandaloneHtml } from '../utils/exportSingleHtml';
 
@@ -18,6 +18,7 @@ interface Props {
   onToggleSpeech: () => void;
   onOpenBadges: () => void;
   onOpenCertificate: () => void;
+  onOpenEmbedModal: () => void;
   onResetGame: () => void;
 }
 
@@ -36,6 +37,7 @@ export const HUD: React.FC<Props> = ({
   onToggleSpeech,
   onOpenBadges,
   onOpenCertificate,
+  onOpenEmbedModal,
   onResetGame,
 }) => {
   const [isEditingName, setIsEditingName] = useState(false);
@@ -172,6 +174,19 @@ export const HUD: React.FC<Props> = ({
               <span className="hidden sm:inline">Sijil Saya</span>
             </button>
           )}
+
+          {/* Embed to Google Sites Button */}
+          <button
+            onClick={() => {
+              sound.playClick();
+              onOpenEmbedModal();
+            }}
+            className="flex items-center gap-1 px-2.5 py-1.5 rounded-xl bg-blue-600 hover:bg-blue-700 text-white text-xs font-bold shadow transition cursor-pointer"
+            title="Dapatkan Kod Embed untuk Google Sites"
+          >
+            <Globe className="w-3.5 h-3.5" />
+            <span className="hidden sm:inline">Embed Google Sites</span>
+          </button>
 
           {/* Single HTML Offline Download Button */}
           <button
